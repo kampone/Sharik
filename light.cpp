@@ -76,43 +76,48 @@ void light::genTextures() // функция genTexture() класса Scene3D, �
 void light::paintGL()
 {
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-   stereo cam(20.0f,35.0f,1.3333f,45.0f,10.0f,200.0f);
-   cam.ApplyLeftFrustum();
-   glColorMask(true, false, false, false);
+   stereo cam(  2000.0f,35.0f,1.3333f, 45.0f,-10*R,200.0f);   // Far Clipping Distance
 
+glTranslatef(0,0,16.0f);
+  cam.ApplyLeftFrustum();
+   glColorMask(true, false, false, false);
 
    glPopMatrix();
    GLfloat tempMatrix[16];
    glGetFloatv(GL_MODELVIEW_MATRIX,tempMatrix);
    glLoadIdentity();
-
    GLfloat angle=(sqrt(m_dy*m_dy+m_dx*m_dx)*180.0)/(pi*R);
-   glRotatef(angle,-m_dy,m_dx,0.0f);
+   glRotatef(angle,m_dy,-m_dx,0.0f);
    glMultMatrixf(tempMatrix);
    glGetFloatv(GL_MODELVIEW_MATRIX,tempMatrix);
    glPushMatrix();
    glLoadIdentity();
    m_x+=m_dx;
    m_y+=m_dy;
-   glTranslatef(m_x,m_y,-180.0f);
+   glTranslatef(m_x,m_y,0.0f);
    glMultMatrixf(tempMatrix);
    gluQuadricTexture(m_qObj,1);
    gluSphere(m_qObj,R,20,20);
+
+   glClear(GL_DEPTH_BUFFER_BIT) ;
+
    cam.ApplyRightFrustum();
    glColorMask(false, true, true, false);
+
    glPopMatrix();
    glGetFloatv(GL_MODELVIEW_MATRIX,tempMatrix);
    glLoadIdentity();
-   glRotatef(angle,-m_dy,m_dx,0.0f);
+   glRotatef(angle,m_dy,-m_dx,0.0f);
    glMultMatrixf(tempMatrix);
    glGetFloatv(GL_MODELVIEW_MATRIX,tempMatrix);
    glPushMatrix();
    glLoadIdentity();
-   glTranslatef(m_x,m_y,-180.0f);
+   glTranslatef(m_x,m_y,0.0f);
    glMultMatrixf(tempMatrix);
    gluQuadricTexture(m_qObj,1);
    gluSphere(m_qObj,R,20,20);
    glColorMask(true, true, true, true);
+
 
  //  drawAxis();
    glFlush();
