@@ -15,7 +15,7 @@ public:
     explicit light(QWidget *parent = 0);
 
 protected:
-   // void genTextures();
+    void genTextures();
    void drawAxis();
    virtual void initializeGL();
    virtual void resizeGL(int nWidth, int nHeight);
