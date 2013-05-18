@@ -78,7 +78,7 @@ void light::paintGL()
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
    stereo cam(  2000.0f,35.0f,1.3333f, 45.0f,-10*R,200.0f);   // Far Clipping Distance
 
-glTranslatef(0,0,16.0f);
+
   cam.ApplyLeftFrustum();
    glColorMask(true, false, false, false);
 
