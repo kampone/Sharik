@@ -32,6 +32,7 @@ private:
     GLfloat m_dy;
     QPoint m_ptPosition;
     QImage image1;
+    QImage image2;
     GLuint textureID;
 signals:
 

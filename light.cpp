@@ -54,8 +54,9 @@ void light::genTextures() // функция genTexture() класса Scene3D, �
 {
    // загрузка изображений
    QImage image1; // создаём объекты класса QImage (изображения)
-   image1.load("2.jpg"); // загружаем изображение в переменную image1
+   image1.load("4.jpg"); // загружаем изображение в переменную image1
    image1=QGLWidget::convertToGLFormat(image1); // конвертируем изображение в формат для работы с OpenGL
+
    glGenTextures(1, &textureID); // создаём два имени и записываем их в массив
    // создаём и связываем текстурные объекты с состоянием текстуры
    // 1-ый текстурный объект
@@ -77,7 +78,14 @@ void light::paintGL()
 {
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
    stereo cam(  2000.0f,35.0f,1.3333f, 45.0f,-10*R,200.0f);   // Far Clipping Distance
-
+ /* первоначальные значения
+   (2000.0f,     // Convergence
+    35.0f,       // Eye Separation
+    1.3333f,     // Aspect Ratio
+    45.0f,       // FOV along Y in degrees
+    10.0f,       // Near Clipping Distance
+    20000.0f);   // Far Clipping Distance
+*/
 
   cam.ApplyLeftFrustum();
    glColorMask(true, false, false, false);
@@ -167,7 +175,7 @@ void light::resizeGL(int w, int h)
    //  glOrtho(-1.5,1.5,-0.5*(GLfloat)h/(GLfloat)w,0.5*(GLfloat)h/(GLfloat)w,-10.0,10.0);
    //else
    //GLfloat left=-100,right=100,bottom=-100,top=100,near=-10.0,far=40.0;
-   glOrtho(-1.5*(GLfloat)w/(GLfloat)h,1.5*(GLfloat)w/(GLfloat)h,-1.5,1.5,-10.0,10.0);
+   //glOrtho(-1.5*(GLfloat)w/(GLfloat)h,1.5*(GLfloat)w/(GLfloat)h,-1.5,1.5,-10.0,10.0);
    //glFrustum(left, right, bottom, top, near, far);
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
@@ -191,18 +199,18 @@ void light::keyPressEvent(QKeyEvent *pe){
         break;
     case Qt::Key_W:
         m_dx= 0.0f;
-        m_dy=+0.03f;
+        m_dy=+0.01f;
         break;
     case Qt::Key_S:
         m_dx= 0.0f;
-        m_dy=-0.03f;
+        m_dy=-0.01f;
         break;
     case Qt::Key_A:
-        m_dx=-0.03;
+        m_dx=-0.01;
         m_dy= 0.0f;
         break;
     case Qt::Key_D:
-        m_dx=+0.03;
+        m_dx=+0.01;
         m_dy= 0.0f;
         break;
     case Qt::Key_Space:
