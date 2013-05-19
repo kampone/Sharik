@@ -54,7 +54,7 @@ void light::genTextures() // функция genTexture() класса Scene3D, �
 {
    // загрузка изображений
    QImage image1; // создаём объекты класса QImage (изображения)
-   image1.load("4.jpg"); // загружаем изображение в переменную image1
+   image1.load("1.jpg"); // загружаем изображение в переменную image1
    image1=QGLWidget::convertToGLFormat(image1); // конвертируем изображение в формат для работы с OpenGL
    image2.load("fon.jpg");
    image2=QGLWidget::convertToGLFormat(image2);

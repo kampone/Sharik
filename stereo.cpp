@@ -7,7 +7,7 @@ const GLfloat pi=3.1415926535897932384626433832795;
 
 stereo::stereo (GLfloat Convergence, GLfloat EyeSeparation, GLfloat AspectRatio,
                   GLfloat FOV, GLfloat NearClippingDistance, GLfloat FarClippingDistance,QObject *parent):
-     QObject(parent)
+     QObject(parent),
      mConvergence(Convergence),
      mEyeSeparation(EyeSeparation),
      mAspectRatio(AspectRatio),
