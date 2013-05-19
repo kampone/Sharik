@@ -91,7 +91,8 @@ void light::drawBackGround(){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для s координаты
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для t координаты
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // цвет текселя полностью замещает цвет фрагмента фигуры
-    */glBegin (GL_QUADS);
+    */
+   glBegin (GL_QUADS);
         glTexCoord2f(0.0f, 0.0f);
         glVertex3f (-100, 100,R);
 
@@ -112,8 +113,8 @@ void light::drawBackGround(){
 void light::paintGL()
 {
 
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-drawBackGround();
+   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
 
    stereo cam(  2000.0f,5005.0f,1.3333f, 45.0f,-10*R,200.0f);   // Far Clipping Distance
  /* первоначальные значения
@@ -129,6 +130,8 @@ drawBackGround();
    cam.ApplyLeftFrustum();
    glColorMask(true, false, false, false);
 
+   glLoadIdentity();
+   drawBackGround();
    glPopMatrix();
    GLfloat tempMatrix[16];
    glGetFloatv(GL_MODELVIEW_MATRIX,tempMatrix);
@@ -152,6 +155,8 @@ drawBackGround();
    cam.ApplyRightFrustum();
    glColorMask(false, true, true, false);
 
+   glLoadIdentity();
+   drawBackGround();
    glPopMatrix();
    glGetFloatv(GL_MODELVIEW_MATRIX,tempMatrix);
    glLoadIdentity();
