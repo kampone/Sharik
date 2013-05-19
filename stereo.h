@@ -21,10 +21,10 @@ private:
 
 public:
     stereo (GLfloat Convergence, GLfloat EyeSeparation, GLfloat AspectRatio,GLfloat FOV, GLfloat NearClippingDistance,
-                 GLfloat FarClippingDistance);
+                 GLfloat FarClippingDistance,QObject *parent = 0);
     void ApplyLeftFrustum();
     void ApplyRightFrustum();
-    explicit stereo(QObject *parent = 0);
+    //explicit stereo(QObject *parent = 0);
 
     
 signals:

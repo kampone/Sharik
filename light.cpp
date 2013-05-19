@@ -24,7 +24,7 @@ void light::initializeGL()
 
    GLfloat mat_specular[]={1.0,1.0,1.0,1.0};
    GLfloat mat_shininess[]={50.0};
-   GLfloat light_position[]={1.0,1.0,1.0,0.0};
+   GLfloat light_position[]={1.0,1.0,-1.0,0.0};
    GLfloat white_light[]={1.0,1.0,1.0,1.0};
 
    glClearColor(0.0,0.0,0.0,0.0);
@@ -94,7 +94,7 @@ void light::genTextures() // функция genTexture() класса Scene3D, �
 void light::paintGL()
 {
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-   stereo cam(  2000.0f,35.0f,1.3333f, 45.0f,-10*R,200.0f);   // Far Clipping Distance
+   stereo cam(  2000.0f,5005.0f,1.3333f, 45.0f,-10*R,200.0f);   // Far Clipping Distance
  /* первоначальные значения
    (2000.0f,     // Convergence
     35.0f,       // Eye Separation
@@ -104,7 +104,7 @@ void light::paintGL()
     20000.0f);   // Far Clipping Distance
 */
 
-  cam.ApplyLeftFrustum();
+   cam.ApplyLeftFrustum();
    glColorMask(true, false, false, false);
 
    glPopMatrix();
@@ -122,6 +122,7 @@ void light::paintGL()
    glTranslatef(m_x,m_y,0.0f);
    glMultMatrixf(tempMatrix);
    gluQuadricTexture(m_qObj,1);
+   drawAxis();
    gluSphere(m_qObj,R,20,20);
 
    glClear(GL_DEPTH_BUFFER_BIT) ;
@@ -141,6 +142,7 @@ void light::paintGL()
    glMultMatrixf(tempMatrix);
    gluQuadricTexture(m_qObj,1);
    gluSphere(m_qObj,R,20,20);
+   drawAxis();
    glColorMask(true, true, true, true);
 
 
@@ -162,14 +164,14 @@ void light::drawAxis() // построить оси координат
       glVertex3f(-1.0f,  0.0f,  0.0f); // вторая точка
    glEnd();
 
-   QColor halfGreen(0, 128, 0, 255);
-   qglColor(halfGreen);
+   //QColor halfGreen(0, 128, 0, 255);
+   //qglColor(halfGreen);
    glBegin(GL_LINES);
       // ось y зеленого цвета
       glVertex3f( 0.0f,  1.0f,  0.0f);
       glVertex3f( 0.0f, -1.0f,  0.0f);
 
-      glColor4f(0.00f, 0.00f, 1.00f, 1.0f);
+      //glColor4f(0.00f, 0.00f, 1.00f, 1.0f);
       // ось z синего цвета
       glVertex3f( 0.0f,  0.0f,  1.0f);
       glVertex3f( 0.0f,  0.0f, -1.0f);
