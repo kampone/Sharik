@@ -24,6 +24,7 @@ protected:
    virtual void mousePressEvent(QMouseEvent *pe);
    virtual void mouseMoveEvent(QMouseEvent *pe);
    void defaultScene();
+   void drawBackGround();
 private:
     GLUquadricObj* m_qObj;
     GLfloat m_x;
