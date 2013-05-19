@@ -24,7 +24,6 @@ public:
                  GLfloat FarClippingDistance,QObject *parent = 0);
     void ApplyLeftFrustum();
     void ApplyRightFrustum();
-    //explicit stereo(QObject *parent = 0);
 
     
 signals:
