@@ -96,15 +96,15 @@ void light::drawBackGround(){
         glTexCoord2f(0.0f, 0.0f);
         glVertex3f (-100, 100,R);
 
-        glTexCoord2f(1.0f, 0.0f);
-        glVertex3f (100, 100,R);
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f (-100, -100,R);
 
         glTexCoord2f(1.0f, 1.0f);
         glVertex3f (100, -100,R);
 
-        glTexCoord2f(0.0f, 1.0f);
-        glVertex3f (-100, -100,R);
-    glEnd();
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f (100, 100,R);
+   glEnd();
 
 
 
