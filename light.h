@@ -33,7 +33,7 @@ private:
     QPoint m_ptPosition;
     QImage image1;
     QImage image2;
-    GLuint textureID;
+    GLuint textureID[2];
 signals:
 
 public slots:

@@ -56,11 +56,13 @@ void light::genTextures() // функция genTexture() класса Scene3D, �
    QImage image1; // создаём объекты класса QImage (изображения)
    image1.load("4.jpg"); // загружаем изображение в переменную image1
    image1=QGLWidget::convertToGLFormat(image1); // конвертируем изображение в формат для работы с OpenGL
-
-   glGenTextures(1, &textureID); // создаём два имени и записываем их в массив
+   image2.load("fon.jpg");
+   image2=QGLWidget::convertToGLFormat(image2);
+   glGenTextures(2, textureID); // создаём два имени и записываем их в массив
    // создаём и связываем текстурные объекты с состоянием текстуры
    // 1-ый текстурный объект
-   glBindTexture(GL_TEXTURE_2D, textureID); // создаём и связываем 1-ый текстурный объект с последующим состоянием текстуры
+
+   glBindTexture(GL_TEXTURE_2D, textureID[0]); // создаём и связываем 1-ый текстурный объект с последующим состоянием текстуры
    glTexImage2D(GL_TEXTURE_2D, 0, 3, (GLsizei)image1.width(), (GLsizei)image1.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image1.bits()); // связываем текстурный объект с изображением
    glEnable(GL_DEPTH_TEST);
    //glEnable(GL_LIGHTING);
@@ -73,6 +75,21 @@ void light::genTextures() // функция genTexture() класса Scene3D, �
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для s координаты
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для t координаты
    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // цвет текселя полностью замещает цвет фрагмента фигуры
+   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+   glBegin (GL_QUADS);
+       glColor3f (1, 0, 0);
+       glVertex3f (0, 100,-8*R);
+
+       glColor3f (0, 1, 0);
+       glVertex3f (100, 100,-8*R);
+
+       glColor3f (0, 0, 1);
+       glVertex3f (100, 0,-8*R);
+
+       glColor3f (1, 1, 1);
+       glVertex3f (0, 0,-8*R);
+   glEnd();
 }
 void light::paintGL()
 {
@@ -130,6 +147,10 @@ void light::paintGL()
  //  drawAxis();
    glFlush();
 }
+
+
+
+
 void light::drawAxis() // построить оси координат
 {
    glLineWidth(5.0f); // устанавливаю ширину линии приближённо в пикселях
