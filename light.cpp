@@ -75,7 +75,19 @@ void light::genTextures() // функция genTexture() класса Scene3D, �
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для t координаты
    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // цвет текселя полностью замещает цвет фрагмента фигуры
 
+    glBindTexture(GL_TEXTURE_2D, textureID[1]); // создаём и связываем 2-oй текстурный объект с последующим состоянием текстуры
+      glTexImage2D(GL_TEXTURE_2D, 0, 3, (GLsizei)image2.width(), (GLsizei)image2.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image2.bits()); // связываем текстурный объект с изображением
+     glEnable(GL_DEPTH_TEST);
+      //glEnable(GL_LIGHTING);
+      //glEnable(GL_LIGHT0);
+      glEnable(GL_NORMALIZE);
+      glEnable(GL_COLOR_MATERIAL);
 
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // задана линейная фильтрация вблизи
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // задана линейная фильтрация вдали
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для s координаты
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для t координаты
+      glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // цвет текселя полностью замещает цвет фрагмента фигуры
 }
 void light::drawBackGround(){
  /*  glBindTexture(GL_TEXTURE_2D, textureID[1]); // создаём и связываем 2-oй текстурный объект с последующим состоянием текстуры
@@ -91,23 +103,38 @@ void light::drawBackGround(){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для s координаты
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для t координаты
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // цвет текселя полностью замещает цвет фрагмента фигуры
-    */
-   glBegin (GL_QUADS);
+
+  */glBegin (GL_QUADS);
         glTexCoord2f(0.0f, 0.0f);
-        glVertex3f (-100, 100,R);
+        glVertex3f (-1, 1,R);
 
-        glTexCoord2f(0.0f, 1.0f);
-        glVertex3f (-100, -100,R);
-
-        glTexCoord2f(1.0f, 1.0f);
-        glVertex3f (100, -100,R);
 
         glTexCoord2f(1.0f, 0.0f);
-        glVertex3f (100, 100,R);
-   glEnd();
+        glVertex3f (1, 1,R);
 
 
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f (1, -1,R);
 
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f (-1, -1,R);
+
+ glEnd();
+
+/*   glBindTexture(GL_TEXTURE_2D, textureID[0]); // создаём и связываем 2-oй текстурный объект с последующим состоянием текстуры
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, (GLsizei)image2.width(), (GLsizei)image2.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image2.bits()); // связываем текстурный объект с изображением
+   glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_LIGHTING);
+    //glEnable(GL_LIGHT0);
+    glEnable(GL_NORMALIZE);
+    glEnable(GL_COLOR_MATERIAL);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // задана линейная фильтрация вблизи
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // задана линейная фильтрация вдали
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для s координаты
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // при фильтрации игнорируются тексели, выходящие за границу текстуры для t координаты
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // цвет текселя полностью замещает цвет фрагмента фигуры
+*/
 }
 
 void light::paintGL()
@@ -117,21 +144,13 @@ void light::paintGL()
 
 
    stereo cam(  2000.0f,5005.0f,1.3333f, 45.0f,-10*R,200.0f);   // Far Clipping Distance
- /* первоначальные значения
-   (2000.0f,     // Convergence
-    35.0f,       // Eye Separation
-    1.3333f,     // Aspect Ratio
-    45.0f,       // FOV along Y in degrees
-    10.0f,       // Near Clipping Distance
-    20000.0f);   // Far Clipping Distance
-*/
-
 
    cam.ApplyLeftFrustum();
    glColorMask(true, false, false, false);
-
    glLoadIdentity();
+   glBindTexture(GL_TEXTURE_2D, textureID[1]);
    drawBackGround();
+
    glPopMatrix();
    GLfloat tempMatrix[16];
    glGetFloatv(GL_MODELVIEW_MATRIX,tempMatrix);
@@ -146,9 +165,9 @@ void light::paintGL()
    m_y+=m_dy;
    glTranslatef(m_x,m_y,0.0f);
    glMultMatrixf(tempMatrix);
+   glBindTexture(GL_TEXTURE_2D, textureID[0]);
    gluQuadricTexture(m_qObj,1);
-   //drawAxis();
-   gluSphere(m_qObj,R,20,20);
+   gluSphere(m_qObj,R,100,100);
 
    glClear(GL_DEPTH_BUFFER_BIT) ;
 
@@ -156,6 +175,8 @@ void light::paintGL()
    glColorMask(false, true, true, false);
 
    glLoadIdentity();
+
+   glBindTexture(GL_TEXTURE_2D, textureID[1]);
    drawBackGround();
    glPopMatrix();
    glGetFloatv(GL_MODELVIEW_MATRIX,tempMatrix);
@@ -167,8 +188,9 @@ void light::paintGL()
    glLoadIdentity();
    glTranslatef(m_x,m_y,0.0f);
    glMultMatrixf(tempMatrix);
+   glBindTexture(GL_TEXTURE_2D, textureID[0]);
    gluQuadricTexture(m_qObj,1);
-   gluSphere(m_qObj,R,20,20);
+   gluSphere(m_qObj,R,100,100);
    //drawAxis();
 
    glColorMask(true, true, true, true);
